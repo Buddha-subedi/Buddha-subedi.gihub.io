@@ -1,28 +1,1066 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Academic website of Buddha Subedi, PhD researcher at the University of Minnesota.">
-  <title>Buddha Subedi | Academic Website</title>
+  <meta name="description" content="Buddha Subedi | PhD Researcher in AI, Generative Modeling, Earth Observation, and Weather Intelligence at the University of Minnesota.">
+  <meta name="theme-color" content="#0b1220">
+  <title>Buddha Subedi | AI Research & Earth Intelligence</title>
+
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; background: #f7f9fc; color: #19283b; line-height: 1.6; }
-    main { max-width: 760px; margin: 12vh auto; padding: 0 24px; }
-    h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); margin-bottom: 0.2rem; }
-    .subtitle { color: #425b77; font-size: 1.15rem; }
-    .panel { background: white; border: 1px solid #e1e7ef; border-radius: 14px; padding: 26px; margin-top: 30px; }
-    footer { color: #65758a; font-size: .9rem; margin-top: 36px; }
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --ink: #17263b;
+      --muted: #5d6e83;
+      --navy: #0b172a;
+      --blue: #2563eb;
+      --cyan: #06b6d4;
+      --border: #e2e8f0;
+      --radius: 16px;
+      --shadow: 0 10px 35px rgba(15, 23, 42, .06);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, system-ui, -apple-system,
+        "Segoe UI", Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button { font: inherit; }
+
+    .container {
+      max-width: 1180px;
+      margin: auto;
+      padding: 0 24px;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 23, 42, .97);
+      backdrop-filter: blur(14px);
+      color: white;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .navbar {
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -.5px;
+      color: white;
+      white-space: nowrap;
+    }
+
+    .brand span { color: #67e8f9; }
+
+    .navlinks {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .navlinks > li { position: relative; }
+
+    .navlinks a,
+    .dropdown-toggle {
+      color: #dbe5f4;
+      font-size: .92rem;
+      font-weight: 600;
+      background: none;
+      border: 0;
+      padding: 12px 0;
+      cursor: pointer;
+    }
+
+    .navlinks a:hover,
+    .dropdown-toggle:hover {
+      color: #67e8f9;
+      text-decoration: none;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      padding: 10px;
+      background: #14243b;
+      border: 1px solid #31445d;
+      border-radius: 12px;
+      box-shadow: 0 15px 30px rgba(0,0,0,.2);
+      list-style: none;
+    }
+
+    .dropdown li { position: relative; }
+
+    .dropdown a,
+    .dropdown button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      color: #e2e8f0;
+      border-radius: 7px;
+      font-size: .9rem;
+      background: none;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .dropdown a:hover,
+    .dropdown button:hover {
+      background: #223b58;
+      text-decoration: none;
+    }
+
+    .has-dropdown:hover > .dropdown,
+    .has-dropdown:focus-within > .dropdown,
+    .has-dropdown.open > .dropdown {
+      display: block;
+    }
+
+    .submenu {
+      top: 0;
+      left: 100%;
+    }
+
+    .profile-small {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #67e8f9;
+      background: #243b56;
+    }
+
+    .profile-fallback {
+      display: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      background: #2563eb;
+      font-weight: 800;
+      color: white;
+      border: 2px solid #67e8f9;
+    }
+
+    .menu-button {
+      display: none;
+      border: 1px solid #40546c;
+      color: white;
+      background: transparent;
+      padding: 8px 13px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+    .hero {
+      color: white;
+      background:
+        radial-gradient(circle at 80% 20%,
+          rgba(37,99,235,.3), transparent 38%),
+        linear-gradient(135deg, #0b172a, #152e4b);
+      padding: 90px 0 95px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.5fr .7fr;
+      gap: 65px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      color: #67e8f9;
+      letter-spacing: 2px;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 5vw, 4.6rem);
+      line-height: 1.12;
+      margin: 15px 0;
+      letter-spacing: -2px;
+    }
+
+    .hero h2 {
+      color: #d1e3f7;
+      font-weight: 500;
+      font-size: 1.3rem;
+      margin: 0 0 20px;
+    }
+
+    .hero p {
+      color: #bbcadc;
+      max-width: 720px;
+      font-size: 1.04rem;
+    }
+
+    .hero-photo {
+      width: 100%;
+      max-width: 285px;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 6px solid rgba(103,232,249,.65);
+      box-shadow: 0 0 65px rgba(37,99,235,.3);
+      display: block;
+      margin: auto;
+    }
+
+    .hero-initials {
+      display: none;
+      width: 100%;
+      max-width: 285px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 6px solid rgba(103,232,249,.65);
+      background: #244c7a;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      font-size: 5rem;
+      font-weight: 800;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 11px 20px;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: .9rem;
+      transition: transform .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    .btn-primary { background: #67e8f9; color: #0b172a; }
+    .btn-outline { border: 1px solid #7890aa; color: white; }
+
+    /* SECTIONS */
+    section.content-section {
+      padding: 75px 0;
+      scroll-margin-top: 85px;
+    }
+
+    .section-heading {
+      margin-bottom: 30px;
+    }
+
+    .section-heading h2 {
+      font-size: 2rem;
+      letter-spacing: -.7px;
+      margin: 0 0 8px;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .section-heading::after {
+      content: "";
+      display: block;
+      width: 65px;
+      height: 4px;
+      margin-top: 16px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      border-radius: 4px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 { margin-top: 0; }
+    .card p { color: #526277; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .grid-three {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 5px 11px;
+      border-radius: 20px;
+      background: #e9f1ff;
+      color: #1d4ed8;
+      font-size: .77rem;
+      font-weight: 700;
+      margin: 4px 5px 4px 0;
+    }
+
+    .research-list {
+      padding-left: 22px;
+      color: #526277;
+    }
+
+    .research-list li { margin-bottom: 9px; }
+
+    .highlight {
+      border-left: 4px solid var(--blue);
+      padding-left: 20px;
+      margin: 24px 0;
+      color: #344b65;
+      font-size: 1.05rem;
+    }
+
+    .publication {
+      border-bottom: 1px solid var(--border);
+      padding: 23px 0;
+    }
+
+    .publication:last-child { border: 0; }
+    .publication h3 { margin: 0 0 8px; }
+    .publication p { margin: 6px 0; color: var(--muted); }
+
+    .status {
+      display: inline-block;
+      background: #eef2ff;
+      color: #4338ca;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+
+    .product-group { margin-top: 38px; }
+    .product-group h3 { font-size: 1.45rem; }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-card .btn {
+      align-self: flex-start;
+      background: #eaf2ff;
+      color: #1d4ed8;
+      margin-top: 12px;
+    }
+
+    .muted { color: var(--muted); }
+    .alternate { background: #edf2f9; }
+
+    .contact {
+      text-align: center;
+      background: #0b172a;
+      color: white;
+      padding: 70px 24px;
+    }
+
+    .contact h2 { font-size: 2rem; }
+    .contact p { color: #bacbde; }
+
+    footer {
+      background: #07111f;
+      color: #91a5bd;
+      text-align: center;
+      padding: 25px;
+      font-size: .85rem;
+    }
+
+    /* MOBILE */
+    @media (max-width: 850px) {
+      .menu-button { display: block; }
+
+      .navlinks {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: #0b172a;
+        padding: 20px 25px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .navlinks.show { display: flex; }
+
+      .dropdown,
+      .submenu {
+        position: static;
+        box-shadow: none;
+        margin: 5px 0 10px 15px;
+        min-width: 0;
+      }
+
+      .has-dropdown:hover > .dropdown {
+        display: none;
+      }
+
+      .has-dropdown.open > .dropdown,
+      .has-dropdown:focus-within > .dropdown {
+        display: block;
+      }
+
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-photo, .hero-initials { max-width: 200px; }
+      .hero-photo-wrap { grid-row: 1; }
+
+      .grid, .grid-three { grid-template-columns: 1fr; }
+      .hero { padding: 55px 0; }
+      section.content-section { padding: 55px 0; }
+    }
   </style>
 </head>
+
 <body>
-  <main>
-    <h1>Buddha Subedi</h1>
-    <p class="subtitle">PhD Researcher | University of Minnesota</p>
-    <section class="panel">
-      <h2>Research Interests</h2>
-      <p>Artificial intelligence, machine learning, remote sensing, and precipitation retrieval and forecasting.</p>
-    </section>
-    <footer>Academic website · Buddha Subedi</footer>
-  </main>
+
+  <!-- NAVIGATION -->
+  <header>
+    <nav class="container navbar" aria-label="Main navigation">
+      <a class="brand" href="#home">Buddha <span>Subedi</span></a>
+
+      <button class="menu-button" id="menuButton"
+        aria-expanded="false" aria-controls="navLinks">
+        ☰ Menu
+      </button>
+
+      <ul class="navlinks" id="navLinks">
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#ongoing">Ongoing Work</a></li>
+
+        <li class="has-dropdown">
+          <button class="dropdown-toggle" aria-expanded="false">
+            Products ▾
+          </button>
+
+          <ul class="dropdown">
+            <li class="has-dropdown">
+              <button class="dropdown-toggle" aria-expanded="false">
+                Data ▸
+              </button>
+              <ul class="dropdown submenu">
+                <li><a href="#gmi">GMI</a></li>
+                <li><a href="#ssmis">SSMIS</a></li>
+              </ul>
+            </li>
+
+            <li class="has-dropdown">
+              <button class="dropdown-toggle" aria-expanded="false">
+                Packages ▸
+              </button>
+              <ul class="dropdown submenu">
+                <li><a href="#tlpr2s">TLP-R2S</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div>
+        <img src="profile.jpg" class="profile-small"
+          alt="Buddha Subedi profile photograph"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="profile-fallback">BS</div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">AI Research · Generative Modeling · Earth Intelligence</div>
+        <h1>Buddha Subedi</h1>
+        <h2>PhD Researcher | University of Minnesota</h2>
+
+        <p>
+          Building scalable, physics-aware artificial intelligence
+          systems for understanding, reconstructing, and forecasting
+          Earth's atmosphere through satellite observations,
+          generative models, and high-performance computing.
+        </p>
+
+        <p>
+          My research bridges deep learning, remote sensing,
+          scientific machine learning, and global environmental
+          modeling, with an emphasis on reliable AI systems
+          for precipitation retrieval and forecasting.
+        </p>
+
+        <div class="buttons">
+          <a class="btn btn-primary" href="#about">Explore My Research</a>
+          <a class="btn btn-outline"
+            href="https://github.com/Buddha-subedi"
+            target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="btn btn-outline"
+            href="https://www.linkedin.com/in/buddha-subedi-95591323a"
+            target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <img src="profile.jpg" class="hero-photo"
+          alt="Portrait of Buddha Subedi"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="hero-initials">BS</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="content-section" id="about">
+    <div class="container">
+      <div class="section-heading">
+        <h2>About Me</h2>
+        <p>Research scientist in training, working at the intersection of AI and Earth science.</p>
+      </div>
+
+      <div class="card">
+        <p>
+          I am a PhD researcher in Water Resources Science and
+          Engineering at the University of Minnesota, where I work
+          on artificial intelligence, satellite remote sensing,
+          and data-driven modeling of the Earth's atmosphere.
+          My research focuses on developing scalable machine
+          learning systems that transform sparse, noisy, and
+          heterogeneous satellite observations into physically
+          meaningful environmental information.
+        </p>
+
+        <p>
+          My technical interests span <strong>generative AI,
+          diffusion and flow-based models, graph neural networks,
+          transformer architectures, spatiotemporal learning,
+          probabilistic modeling, and scientific foundation
+          models</strong>. I am particularly interested in
+          architectures that combine physical knowledge with
+          data-driven learning to solve complex problems
+          across large spatial and temporal scales.
+        </p>
+
+        <p>
+          I develop end-to-end research pipelines involving
+          large-scale geospatial datasets, multi-sensor data
+          integration, GPU-accelerated training, distributed
+          computing, model evaluation, and reproducible
+          scientific software. My work includes global
+          precipitation generation, satellite rainfall and
+          snowfall retrieval, stochastic super-resolution,
+          missing-data reconstruction, and short-range
+          precipitation forecasting.
+        </p>
+
+        <p>
+          Beyond developing predictive models, I am interested
+          in the broader challenge of building reliable and
+          computationally efficient AI systems that generalize
+          across sensors, geographic regions, resolutions,
+          and environmental conditions.
+        </p>
+
+        <div class="highlight">
+          My long-term goal is to advance AI for scientific
+          discovery by developing scalable generative and
+          spatiotemporal learning systems that connect
+          observations, physical processes, and predictive
+          intelligence.
+        </div>
+
+        <p>
+          I am interested in research scientist and applied
+          scientist opportunities in generative AI,
+          scientific machine learning, geospatial foundation
+          models, weather and climate intelligence, and
+          high-performance AI computing.
+        </p>
+
+        <div>
+          <span class="tag">Diffusion Models</span>
+          <span class="tag">Graph Neural Networks</span>
+          <span class="tag">Transformers</span>
+          <span class="tag">Generative AI</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">Distributed Training</span>
+          <span class="tag">Satellite Remote Sensing</span>
+          <span class="tag">Scientific Machine Learning</span>
+          <span class="tag">Weather Forecasting</span>
+          <span class="tag">High-Performance Computing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH EXPERTISE -->
+  <section class="content-section alternate" id="expertise">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Research & Technical Expertise</h2>
+        <p>From machine learning research to global-scale computational systems.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Generative AI & Probabilistic Modeling</h3>
+          <p>
+            Denoising diffusion probabilistic models, DDIM
+            sampling, conditional generation, inpainting,
+            stochastic super-resolution, and uncertainty-aware
+            environmental prediction.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Graph & Spatiotemporal Learning</h3>
+          <p>
+            Graph neural networks, temporal attention,
+            CNN encoder-decoder architectures, geographic
+            graph representations, and global precipitation
+            forecasting.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Scalable AI & GPU Computing</h3>
+          <p>
+            PyTorch, CUDA-enabled training, multi-GPU
+            distributed data parallelism, mixed precision,
+            SLURM scheduling, and large-scale scientific
+            data processing.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Earth Observation & Remote Sensing</h3>
+          <p>
+            Passive microwave satellite observations,
+            multi-sensor learning, GPM GMI, SSMIS,
+            DPR, CloudSat CPR, ERA5 reanalysis,
+            and geospatial precipitation products.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section class="content-section" id="publications">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Publications</h2>
+        <p>Research contributions in AI-based precipitation retrieval and generative modeling.</p>
+      </div>
+
+      <div class="card">
+        <article class="publication">
+          <h3>
+            An Incremental Learning Framework Linking
+            Reanalysis and Radar Data for Passive
+            Microwave Precipitation Retrievals
+          </h3>
+          <p>
+            Research on incremental and transfer learning
+            for satellite rainfall and snowfall retrieval,
+            integrating reanalysis and radar observations.
+          </p>
+          <span class="status">Published Research</span>
+        </article>
+
+        <article class="publication">
+          <h3>
+            Attention-based Conditional Diffusion Model
+            for Super-resolved Stochastic PMW Rainfall Retrievals
+          </h3>
+          <p>
+            DREAM: A conditional diffusion framework
+            integrating passive microwave observations,
+            attention mechanisms, and stochastic rainfall
+            super-resolution.
+          </p>
+          <span class="status">Manuscript Under Revision / Review</span>
+        </article>
+
+        <p class="muted">
+          Additional publication links, DOI references,
+          author lists, and manuscript updates will be
+          added as they become available.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ONGOING WORK -->
+  <section class="content-section alternate" id="ongoing">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Ongoing Work</h2>
+        <p>Current research directions and experimental AI systems.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Global Precipitation Diffusion Models</h3>
+          <p>
+            Developing conditional and unconditional
+            generative models for global rainfall and
+            snowfall fields using reanalysis variables,
+            geographic information, and atmospheric
+            predictors.
+          </p>
+          <span class="tag">DDPM</span>
+          <span class="tag">DDIM</span>
+          <span class="tag">U-Net</span>
+        </article>
+
+        <article class="card">
+          <h3>Graph Neural Network Weather Forecasting</h3>
+          <p>
+            Investigating global spatiotemporal forecasting
+            with geographic graph representations,
+            CNN-based encoding and decoding, temporal
+            learning, and diffusion-based prediction.
+          </p>
+          <span class="tag">GNN</span>
+          <span class="tag">Forecasting</span>
+          <span class="tag">Multi-GPU</span>
+        </article>
+
+        <article class="card">
+          <h3>Satellite Precipitation Inpainting</h3>
+          <p>
+            Reconstructing incomplete precipitation
+            observations from multiple passive microwave
+            sensors using conditional diffusion and
+            observation-constrained sampling.
+          </p>
+          <span class="tag">RePaint</span>
+          <span class="tag">Sensor Fusion</span>
+        </article>
+
+        <article class="card">
+          <h3>High-Resolution Global Snowfall Retrieval</h3>
+          <p>
+            Exploring sparse-supervision strategies
+            that connect CloudSat radar observations,
+            passive microwave measurements, and
+            atmospheric reanalysis to estimate
+            high-resolution snowfall.
+          </p>
+          <span class="tag">CloudSat</span>
+          <span class="tag">SSMIS</span>
+          <span class="tag">Sparse Learning</span>
+        </article>
+
+        <article class="card">
+          <h3>Continuous Space-Time Precipitation Modeling</h3>
+          <p>
+            Investigating models that estimate precipitation
+            at arbitrary locations and time intervals,
+            with the goal of improving spatial and temporal
+            resolution from heterogeneous observations.
+          </p>
+          <span class="tag">Spatiotemporal AI</span>
+          <span class="tag">Super-resolution</span>
+        </article>
+
+        <article class="card">
+          <h3>Scalable Scientific AI Infrastructure</h3>
+          <p>
+            Building data preparation, model training,
+            inference, and validation workflows for
+            large geospatial datasets using GPU clusters,
+            distributed training, and reproducible
+            scientific software.
+          </p>
+          <span class="tag">PyTorch DDP</span>
+          <span class="tag">SLURM</span>
+          <span class="tag">HPC</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="content-section" id="products">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Research Products</h2>
+        <p>Satellite data workflows and scientific software developed through my research.</p>
+      </div>
+
+      <div class="product-group" id="data">
+        <h3>Data</h3>
+
+        <div class="grid">
+          <article class="card product-card" id="gmi">
+            <div>
+              <h3>GMI — GPM Microwave Imager</h3>
+              <p>
+                Passive microwave observations from the
+                Global Precipitation Measurement mission,
+                used in precipitation retrieval, multi-sensor
+                learning, and model validation.
+              </p>
+
+              <p>
+                Research workflows include brightness
+                temperature processing, geolocation,
+                coincidence matching with reference
+                observations, and AI-based precipitation
+                retrieval.
+              </p>
+
+              <span class="tag">GPM</span>
+              <span class="tag">Microwave</span>
+              <span class="tag">Rainfall</span>
+            </div>
+
+            <a class="btn"
+              href="https://gpm.nasa.gov/missions/GPM/GMI"
+              target="_blank" rel="noopener noreferrer">
+              GMI Mission Information
+            </a>
+          </article>
+
+          <article class="card product-card" id="ssmis">
+            <div>
+              <h3>SSMIS — Special Sensor Microwave Imager/Sounder</h3>
+              <p>
+                Passive microwave radiometer observations
+                used for global rainfall and snowfall
+                retrieval, multi-sensor comparisons,
+                and machine learning model development.
+              </p>
+
+              <p>
+                Research pipelines include SSMIS
+                brightness temperature preprocessing,
+                atmospheric reanalysis matching,
+                satellite coincidence analysis,
+                and precipitation retrieval.
+              </p>
+
+              <span class="tag">SSMIS</span>
+              <span class="tag">Snowfall</span>
+              <span class="tag">Remote Sensing</span>
+            </div>
+
+            <a class="btn" href="#contact">
+              Dataset Access Inquiry
+            </a>
+          </article>
+        </div>
+      </div>
+
+      <div class="product-group" id="packages">
+        <h3>Packages</h3>
+
+        <div class="card product-card" id="tlpr2s">
+          <div>
+            <h3>TLP-R2S</h3>
+            <p>
+              <strong>
+                Transfer Learning for Passive Microwave
+                Rainfall and Snowfall Retrieval
+              </strong>
+            </p>
+
+            <p>
+              TLP-R2S is a research-oriented Python package
+              for retrieving precipitation information
+              from passive microwave satellite observations.
+              It uses an incremental learning framework
+              that links atmospheric reanalysis with
+              radar-based precipitation references.
+            </p>
+
+            <p>
+              The framework is designed to support
+              satellite precipitation retrieval research,
+              sensor-specific inference, and evaluation
+              against independent precipitation datasets.
+            </p>
+
+            <div>
+              <span class="tag">Python Package</span>
+              <span class="tag">Machine Learning</span>
+              <span class="tag">Rainfall</span>
+              <span class="tag">Snowfall</span>
+              <span class="tag">Transfer Learning</span>
+            </div>
+          </div>
+
+          <div class="buttons">
+            <a class="btn"
+              href="https://github.com/Buddha-subedi/TLP-R2S_Python_Package"
+              target="_blank" rel="noopener noreferrer">
+              View GitHub Repository
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2>Let's Connect</h2>
+
+      <p>
+        I welcome discussions about research collaboration,
+        scientific machine learning, generative AI,
+        Earth observation, and AI research opportunities.
+      </p>
+
+      <div class="buttons" style="justify-content:center">
+        <a class="btn btn-primary"
+          href="https://www.linkedin.com/in/buddha-subedi-95591323a"
+          target="_blank" rel="noopener noreferrer">
+          Connect on LinkedIn
+        </a>
+
+        <a class="btn btn-outline"
+          href="https://github.com/Buddha-subedi"
+          target="_blank" rel="noopener noreferrer">
+          Explore GitHub
+        </a>
+      </div>
+
+      <p>
+        University of Minnesota · Minneapolis, Minnesota, USA
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Buddha Subedi.
+    Academic Research Portfolio.
+    Built for research, collaboration, and scientific discovery.
+  </footer>
+
+  <script>
+    // Automatically update the copyright year.
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+
+    // Mobile navigation.
+    menuButton.addEventListener("click", () => {
+      const expanded = navLinks.classList.toggle("show");
+      menuButton.setAttribute("aria-expanded", expanded);
+    });
+
+    // Clickable nested dropdowns.
+    document.querySelectorAll(".dropdown-toggle").forEach(button => {
+      button.addEventListener("click", event => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const parent = button.parentElement;
+        const isOpen = parent.classList.contains("open");
+
+        // Close sibling dropdowns at the same level.
+        const siblings = parent.parentElement.children;
+        for (const sibling of siblings) {
+          if (sibling !== parent) {
+            sibling.classList.remove("open");
+            const toggle = sibling.querySelector(
+              ":scope > .dropdown-toggle"
+            );
+            if (toggle) toggle.setAttribute("aria-expanded", "false");
+          }
+        }
+
+        parent.classList.toggle("open", !isOpen);
+        button.setAttribute("aria-expanded", String(!isOpen));
+      });
+    });
+
+    // Close navigation after selecting a section.
+    document.querySelectorAll(".navlinks a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+        menuButton.setAttribute("aria-expanded", "false");
+
+        document.querySelectorAll(".has-dropdown").forEach(item => {
+          item.classList.remove("open");
+        });
+
+        document.querySelectorAll(".dropdown-toggle").forEach(button => {
+          button.setAttribute("aria-expanded", "false");
+        });
+      });
+    });
+
+    // Close menus when clicking outside navigation.
+    document.addEventListener("click", event => {
+      if (!event.target.closest(".navbar")) {
+        navLinks.classList.remove("show");
+        menuButton.setAttribute("aria-expanded", "false");
+
+        document.querySelectorAll(".has-dropdown").forEach(item => {
+          item.classList.remove("open");
+        });
+
+        document.querySelectorAll(".dropdown-toggle").forEach(button => {
+          button.setAttribute("aria-expanded", "false");
+        });
+      }
+    });
+  </script>
 </body>
 </html>
